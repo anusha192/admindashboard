@@ -179,7 +179,7 @@ const Sidebar = () => {
                         key={subitem.id}
                         className="w-full text-left px-3 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
                       >
-                        {subitem.label}
+                        {subusitem.label}
                       </button>
                     )
                   })}
@@ -214,7 +214,9 @@ const Sidebar = () => {
             <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
               Administrator
             </p>
-
+            <p className='text-xs text-slate-500 dark:text-slate-400 truncate'>
+              admin
+            </p>
           </div>
 
         </div>
