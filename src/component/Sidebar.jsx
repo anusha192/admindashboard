@@ -91,9 +91,9 @@ const menuItems = [
   },
 ]
 
-const Sidebar = () => {
+const Sidebar = ({collapsed,onToggle,currentPage,onPageChange}) => {
   return (
-    <div className="h-full flex flex-col bg-white dark:bg-slate-900">
+    <div className= {`${collapsed ? "w-20":"72"} transition duration-300 ease-in-out bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50 flex flex-col relative z-10 `}>
 
       {/* Logo */}
       <div className="p-6 border-b border-slate-200/50 dark:border-slate-700/50">
@@ -179,7 +179,7 @@ const Sidebar = () => {
                         key={subitem.id}
                         className="w-full text-left px-3 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
                       >
-                        {subusitem.label}
+                        {subitem.label}
                       </button>
                     )
                   })}
@@ -214,9 +214,7 @@ const Sidebar = () => {
             <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
               Administrator
             </p>
-            <p className='text-xs text-slate-500 dark:text-slate-400 truncate'>
-              admin
-            </p>
+            
           </div>
 
         </div>
