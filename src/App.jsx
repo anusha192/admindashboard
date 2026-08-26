@@ -27,6 +27,9 @@ import Sidebar from './component/Sidebar'
 import Header from './component/Header'
 
 const App = () => {
+  const[sidebarcollapsed, setsidebarcollapsed]=useState(false);
+  const[currentPage, setCorrentPage]=useState("dashboard");
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900">
 
@@ -34,7 +37,10 @@ const App = () => {
 
         {/* Sidebar */}
         <aside className="w-64 flex-shrink-0">
-          <Sidebar />
+          <Sidebar collapsed ={sidebarcollapsed} onToggle={()=>setsidebarcollapsed}
+          currentPage={currentPage}
+          onPageChange={setCorrentPage}
+          />
         </aside>
 
         {/* Right side */}

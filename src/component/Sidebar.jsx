@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import profile from '../image/profile.png'
 
 import {
@@ -91,9 +91,35 @@ const menuItems = [
   },
 ]
 
-const Sidebar = ({collapsed,onToggle,currentPage,onPageChange}) => {
+const Sidebar = ({
+  collapsed,
+  onToggle,
+  currentPage,
+  onPageChange
+}) => {
+
+  const [expandedItems, setExpandedItems] = useState(
+    new Set(['analytics'])
+  )
+
+  const toggleexpanded = (itemid) => {
+    const newExpanded = new Set(expandedItems)
+
+    if (newExpanded.has(itemid)) {
+      newExpanded.delete(itemid)
+    } else {
+      newExpanded.add(itemid)
+    }
+
+    setExpandedItems(newExpanded)
+  }
+
   return (
-    <div className= {`${collapsed ? "w-20":"72"} transition duration-300 ease-in-out bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50 flex flex-col relative z-10 `}>
+    <div
+      className={`${
+        collapsed ? 'w-20' : 'w-72'
+      } transition duration-300 ease-in-out bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50 flex flex-col relative z-10`}
+    >
 
       {/* Logo */}
       <div className="p-6 border-b border-slate-200/50 dark:border-slate-700/50">
@@ -106,44 +132,59 @@ const Sidebar = ({collapsed,onToggle,currentPage,onPageChange}) => {
           </div>
 
           {/* Logo Text */}
-          <div>
-            <h1 className="text-xl font-bold text-slate-800 dark:text-white">
-              Nexus
-            </h1>
+          {!collapsed && (
+            <div>
+              <h1 className="text-xl font-bold text-slate-800 dark:text-white">
+                Nexus
+              </h1>
 
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Admin Panel
-            </p>
-          </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Admin Panel
+              </p>
+            </div>
+          )}
 
         </div>
 
       </div>
 
-
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
 
         {menuItems.map((item) => {
+
+          const isExpanded = expandedItems.has(item.id)
+
           return (
             <div key={item.id}>
 
               {/* Main Menu */}
               <button
                 className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 ${
-                  item.active
-                    ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'
-                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  currentPage === item.id || item.active
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
+                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50'
                 }`}
+                onClick={() => {
+
+                  if (item.submenu) {
+                    toggleexpanded(item.id)
+                  } else {
+                    onPageChange(item)
+                  }
+
+                }}
               >
 
                 <div className="flex items-center space-x-3">
 
                   <item.icon className="w-5 h-5" />
 
-                  <span className="font-medium">
-                    {item.label}
-                  </span>
+                  {!collapsed && (
+                    <span className="font-medium">
+                      {item.label}
+                    </span>
+                  )}
 
                   {/* Badge */}
                   {item.badge && (
@@ -162,26 +203,32 @@ const Sidebar = ({collapsed,onToggle,currentPage,onPageChange}) => {
                 </div>
 
                 {/* Arrow */}
-                {item.submenu && (
-                  <ChevronDown className="w-4 h-4" />
+                {!collapsed && item.submenu && (
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform ${
+                      isExpanded ? 'rotate-180' : ''
+                    }`}
+                  />
                 )}
 
               </button>
 
-
               {/* Sub Menu */}
-              {item.submenu && (
+              {!collapsed && item.submenu && isExpanded && (
                 <div className="ml-8 mt-2 space-y-1">
 
                   {item.submenu.map((subitem) => {
+
                     return (
                       <button
                         key={subitem.id}
+                        onClick={() => onPageChange(subitem)}
                         className="w-full text-left px-3 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
                       >
                         {subitem.label}
                       </button>
                     )
+
                   })}
 
                 </div>
@@ -192,7 +239,6 @@ const Sidebar = ({collapsed,onToggle,currentPage,onPageChange}) => {
         })}
 
       </nav>
-
 
       {/* User Profile */}
       <div className="p-4 border-t border-slate-200/50 dark:border-slate-700/50 dark:bg-slate-800/50">
@@ -214,7 +260,7 @@ const Sidebar = ({collapsed,onToggle,currentPage,onPageChange}) => {
             <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
               Administrator
             </p>
-            
+
           </div>
 
         </div>
