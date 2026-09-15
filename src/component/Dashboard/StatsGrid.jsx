@@ -114,40 +114,9 @@ const StatsGrid = () => {
 
             </div>
 
-            {/*  Top product*/}
-            <div className='bg-white/-80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 oerflow-hidden'>
-            <div className='p-6 border-b border-slate-200/50 dark:border-slate-700/50 '>
-              <div className='flex items-center justify-between '>
-             <div className='text-lg font-bold text-slate-800 dark:text-white'>
-               <h3 className='text-lg font-bold text-slate-800 dark:text-white'>Top Products</h3>
-             </div>
-             <p className='text-sm text-slate-500 dark:text-slate-400'>
-              best performing produts
-             </p>
-
-              </div>
-              <button className='text-blue-600 hover:text-blue-700 text-sm font-medium '> View All</button>
-            </div>
-            {/* dynamic data */}
-             <div className='p-6 space-y-4'>
-              <div className='flex items-center justify-between p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors'>
-              <div className='flex-1'>
-                <h4 className='text-sm font-medium  font-semibold text-slate-800 dark:text-white '> Product Name</h4>
-                <p className='text-xs text-slate-500 dark:text-slate-400'>Product Sales</p>
-              </div>
-              <div className='text-rights'>
-                <p className='text-sm font-semibold text-slate-800 dark:text-white'> Product Recview</p>
-                <div className='flex items-center space-x-1'>
-                  <TrendingUp className='w-3 h-3 text-emerald-500'/>
-                  <span> Product Change</span>
-                </div>
-              </div>
-              </div>
-             </div>
-            </div>
-
-          </div>
+            
            </div>
+            </div>
         )
       })}
 
