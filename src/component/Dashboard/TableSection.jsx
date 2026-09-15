@@ -1,7 +1,56 @@
-
-
-
+import {MoreHorizontal} from 'lucide-react'
+const recentOrders = [
+  {
+    id: "#B34847",
+    customer: "John Smith",
+    product: "MacBook Pro 16",
+    amount: "$2,399",
+    status: "completed",
+    date: "2024-01-15",
+  },
+  {
+    id: "#B34848",
+    customer: "Sarah Johnson",
+    product: "iPhone 15 Pro",
+    amount: "$1,199",
+    status: "pending",
+    date: "2024-01-15",
+  },
+  {
+    id: "#B34849",
+    customer: "Mike Wilson",
+    product: "AirPods Pro",
+    amount: "$249",
+    status: "completed",
+    date: "2024-01-14",
+  },
+  {
+    id: "#B34850",
+    customer: "Emily Davis",
+    product: "iPad Air",
+    amount: "$599",
+    status: "cancelled",
+    date: "2024-01-14",
+  },
+  
+];
+ 
 const TableSection = () => {
+  const getStatusColor = (status) => {
+  switch (status) {
+    case "completed":
+      return "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400";
+
+    case "pending":
+      return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400";
+
+    case "cancelled":
+      return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
+
+    default:
+      return "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-400";
+  }
+};
   return (
     <div className="space-y-6">
       {/* recent order */}
@@ -10,7 +59,7 @@ const TableSection = () => {
 
         <div className=" flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-bold text-slate-800 dark:Text-white">Recent Orders</h1>
+            <h1 className="text-lg font-bold text-slate-800 dark:text-white">Recent Orders</h1>
 
           </div>
           <p className="text-sm text-slate-500  dark:text-slate-400">
@@ -26,21 +75,74 @@ const TableSection = () => {
           <table className="w-full">
             <thead>
               <tr>
-                <th className="'text-lefy p-4 tet-sm font-semifold text-slate-600">
+                <th className="text-left p-4 text-sm font-semibold text-slate-600">
                   orderID
                 </th>
+              
+                <th className="text-left p-4 text-sm font-semibold text-slate-600">
+                  Product
+                </th>
+              
+                <th className="text-left p-4 text-sm font-semibold text-slate-600">
+                  Status
+                </th>
+                 <th className="text-left p-4 text-sm font-semibold text-slate-600">
+                  Date
+                </th>
+               
               </tr>
+             </thead>
+              <tbody>
+               {recentOrders.map((order , index)=>{
+                return(
+                 <tr className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-50/50 dark:hover:bg-slate-800/50 translation-colors" >
+                <td className="p-4" key={index}>
+                  <span className="text-sm font-medium  dark:text-white">
+                    {order.id}
+                  </span>
 
-               <tr>
-                <th className="'text-lefy p-4 tet-sm font-semifold text-slate-600">
-                  orderID
-                </th>
-              </tr> <tr>
-                <th className="'text-lefy p-4 tet-sm font-semifold text-slate-600">
-                  orderID
-                </th>
-              </tr>
-            </thead>
+
+                </td>
+                <td className="p-4">
+                  <span className="text-sm font-medium dark:text-white">
+                    {order.customer}
+                  </span>
+                  
+
+                </td>
+                <td className="p-4">
+                  <span className="text-sm font-medium dark:text-white">
+                   {order.product}
+                  </span>
+                  
+
+                </td>
+                <td className="p-4">
+                  <span className="text-sm font-medium dark:text-white">
+                    {order.amount}
+                  </span>
+                  
+
+                </td>
+                <td className="p-4">
+                  <span className={`text-slate-400 dark:text-white font-medium text-xs px-3 py-1 rounded-full ${getStatusColor(order.status)}`}>
+                    {order.date}
+                  </span>
+                  
+
+                </td>
+                <td className="p-4">
+                  <span className="text-sm font-medium text-blue">
+                <MoreHorizontal className ="w-4 h-4"/>
+                  </span>
+                  
+
+                </td>
+
+                </tr>
+                );
+               })}
+              </tbody>
 
           </table>
 
