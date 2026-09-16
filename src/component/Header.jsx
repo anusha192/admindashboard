@@ -5,14 +5,27 @@ import {
   Plus,
   Sun,
   Bell,
-  Settings
+  Settings,
+  Moon
 } from 'lucide-react'
+import { useState,useEffect } from 'react'
 
 import React from 'react'
 import profile from '../image/profile.png'
 
 const Header = ({sidebarcollapsed , onTogglesidebar}) => {
+   const [darkMode, setDarkMode] = useState(false)
+    useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [darkMode])
+
   return (
+    
+     
     <>
 <div className="w-full flex items-center justify-between bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 px-6 py-4">
 
@@ -74,11 +87,16 @@ const Header = ({sidebarcollapsed , onTogglesidebar}) => {
 
 
           {/* Theme Toggle */}
-          <button className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-
-            <Sun className="w-5 h-5" />
-
-          </button>
+          <button
+  onClick={() => setDarkMode(!darkMode)}
+  className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+>
+  {darkMode ? (
+    <Sun className="w-5 h-5" />
+  ) : (
+    <Moon className="w-5 h-5" />
+  )}
+</button>
 
 
           {/* Notification */}
